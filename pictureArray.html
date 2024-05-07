@@ -49,7 +49,7 @@ let myFile = document.getElementById('myFile')
     }
    
       let index = 0
-      div.innerHTML = imgArr[index].src
+      div.innerHTML = `<img width="100px" height="100px" src="${imgArr[index]}">`
       
     function next() {
         if (index == imgArr.length - 1) {
