@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+<h1>THE PICTURE ARRAY</h1>
+
+    <div id="biggestDiv">
+    <div id="div1"> </div> 
+    <input type="file" id="myFile" onchange="loadFile()">
+    <button onclick="prev()">prev</button>
+    <button onclick="next()">next</button>
+
+    
+</div>
+</body>
+</html>
+<script>
+
+let myFile = document.getElementById('myFile')
+    let div = document.getElementById('div1')
+   let imgArr = JSON.parse(localStorage.getItem('images')) || []
+
+
+    function loadFile() {
+     let file  = myFile.files[0]
+     let reader = new FileReader()
+
+     reader.addEventListener('load' , (e)=> {
+        let data = e.target.result
+        console.log(data);
+        div.innerHTML = `<img width="100px" height="100px" src="${data}">`
+
+        imgArr.push(data)
+        localStorage.setItem('images' , JSON.stringify(imgArr))
+
+        console.log(imgArr);
+     })
+
+     if (file) {
+        reader.readAsDataURL(file)
+     }
+
+        
+    }
+   
+      let index = 0
+      div.innerHTML = imgArr[index].src
+      
+    function next() {
+        if (index == imgArr.length - 1) {
+            index = 0
+        } else {
+            index++
+        }
+        div.innerHTML =`<img width="100px" height="100px" src="${imgArr[index]}">`
+    }
+
+    function prev() {
+        if (index == 0) {
+            index = imgArr.length - 1
+        } else {
+            index--
+        }
+        div.innerHTML =`<img width="100px" height="100px" src="${imgArr[index]}">`
+    }
+
+    // let button = document.getElementById('button')
+    // button.addEventListener('click' , function () {
+    //     alert('say hi')
+    // })
+
+    // let input = document.getElementById('input')
+    // input.addEventListener('keypress' , function () {
+    //     alert('say hi')
+    // })
+
+
+
+
+
+
+
+    // let collectedData = JSON.parse(localStorage.getItem('myDataBase'))
+    // let theName = localStorage.getItem("clientUsername")
+   
+
+    // theWelcome.innerHTML = `<h1>Welcome to your dashboard, ${theName}</h1>`
+    
+</script>
